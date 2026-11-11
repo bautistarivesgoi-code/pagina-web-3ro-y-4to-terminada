@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Friv 2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="hblur" x="-20%" y="0" width="140%" height="100%"><feGaussianBlur id="hblur-std" stdDeviation="0 0"/></filter></svg>
+  <div class="bg" aria-hidden="true"></div>
+  <img src="images/nobg/gato1.png" alt="" class="drift d1">
+  <img src="images/nobg/gato3.png" alt="" class="drift d2">
+  <img src="images/nobg/gato6.png" alt="" class="drift d3">
+
+  <header class="topbar">
+    <nav class="tabs" id="tabs" aria-label="Categorías">
+      <button class="tab active" data-cat="todos">Todos</button>
+      <button class="tab" data-cat="Aventura">Aventura</button>
+      <button class="tab" data-cat="Arcade">Arcade</button>
+    </nav>
+    <div class="top-right">
+      <label class="search">
+        <span aria-hidden="true">&#128269;</span>
+        <input id="search-input" type="search" placeholder="Buscar juegos..." autocomplete="off">
+      </label>
+      <time id="clock" class="clock">--:--</time>
+    </div>
+  </header>
+
+  <main class="home">
+    <h1 class="logo">FRIV <span>2</span></h1>
+    <p class="intro">El mejor sitio de juegos para alumnos. Elegí un juego y a divertirse.</p>
+
+    <section class="stage" id="stage" aria-label="Juegos">
+      <div class="track" id="track"></div>
+      <div id="no-results" class="no-results">
+        <p class="nr-title">😿 Juego no encontrado</p>
+        <p class="nr-sub">Probá con alguno de estos:</p>
+        <div id="recommendations" class="recommendations"></div>
+      </div>
+    </section>
+
+    <section class="info" id="info" aria-live="polite">
+      <img id="mascot" class="mascot" src="images/nobg/gato2.png" alt="">
+      <div class="info-text">
+        <span id="info-tag" class="info-tag"></span>
+        <h2 id="info-title"></h2>
+        <p id="info-desc"></p>
+        <button id="play" class="play"><span class="x">✕</span> Jugar</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="hints">
+    <span><b>◀ ▶</b> Navegar</span>
+    <span><b>✕ Enter</b> Jugar</span>
+    <span><b>/</b> Buscar</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
