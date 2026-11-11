@@ -1,17 +1,32 @@
 const GAMES = [
-  { glow: '#6dff4a', title: 'Ben 10 Game', cat: 'Aventura', cover: 'images/covers/juego1_cover.png', cat_img: 'images/nobg/gato2.png',
+  { glow: '#6dff4a', title: 'Ben 10 Game', cat: 'Aventura', cover: 'juego1_cover.png', cat_img: 'gato2.png',
     url: 'https://scratch.mit.edu/projects/1206065561/fullscreen/',
     desc: 'Ponete el Omnitrix y enfrentá la aventura con los héroes de Ben 10.' },
-  { glow: '#ff8a3d', title: 'Juego de la pelota', cat: 'Arcade', cover: 'images/covers/pelota_naranja.png', cat_img: 'images/nobg/gato4.png',
+  { glow: '#ff8a3d', title: 'Juego de la pelota', cat: 'Arcade', cover: 'pelota_naranja.png', cat_img: 'gato4.png',
     url: 'https://scratch.mit.edu/projects/409551080/fullscreen/',
     desc: 'Guiá la pelota naranja por el camino sin caerte al vacío.' },
-  { glow: '#3de8ff', title: 'Space Pong', cat: 'Arcade', cover: 'images/covers/space_pong.png', cat_img: 'images/nobg/gato5.png',
+  { glow: '#3de8ff', title: 'Space Pong', cat: 'Arcade', cover: 'space_pong.png', cat_img: 'gato5.png',
     url: 'https://scratch.mit.edu/projects/1089298842/fullscreen/',
     desc: 'El clásico Pong llevado al espacio: rebotá la pelota y no dejes que pase.' },
-  { glow: '#ffb84d', title: 'Restaurante Busetinni', cat: 'Aventura', cover: 'images/covers/restaurante.png', cat_img: 'images/nobg/gato3.png',
+  { glow: '#ffb84d', title: 'Restaurante Busetinni', cat: 'Aventura', cover: 'restaurante.png', cat_img: 'gato3.png',
     url: 'https://scratch.mit.edu/projects/1320380514/fullscreen/',
     desc: 'Entrá al restaurante y descubrí qué te espera en esta aventura.' }
 ];
+
+// Las imágenes están en la raíz del repositorio (no en images/covers ni images/nobg).
+// Mantener las rutas relativas permite que también funcionen en GitHub Pages.
+document.querySelectorAll('img[src]').forEach(img => {
+  const file = img.getAttribute('src').split('/').pop();
+  if (/^(gato[1-6]\.png|juego1_cover\.png|pelota_naranja\.png|space_pong\.png|restaurante\.png)$/.test(file)) {
+    img.src = file;
+  }
+});
+const pageBackground = document.querySelector('.bg');
+if (pageBackground) {
+  pageBackground.style.backgroundImage = 'linear-gradient(rgba(4,36,46,.55),rgba(4,24,34,.9)),url("background.jpg")';
+  pageBackground.style.backgroundPosition = 'center';
+  pageBackground.style.backgroundSize = 'cover';
+}
 
 const $ = id => document.getElementById(id);
 const track = $('track'), stage = $('stage'), info = $('info'), input = $('search-input');
@@ -40,12 +55,13 @@ let lastX = null, blurRaf = 0;
 function motionBlur(dist) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const std = document.getElementById('hblur-std');
+  if (!std) return;
   const peak = Math.min(34, dist / 10), dur = 1600, t0 = performance.now();
   cancelAnimationFrame(blurRaf);
   track.style.filter = 'url(#hblur)';
   (function step(now) {
     const p = Math.min(1, (now - t0) / dur);
-    const v = peak * Math.sin(Math.PI * Math.pow(p, .7));   // sube rápido y se disuelve al frenar
+    const v = peak * Math.sin(Math.PI * Math.pow(p, .7));
     std.setAttribute('stdDeviation', v.toFixed(2) + ' 0');
     if (p < 1) blurRaf = requestAnimationFrame(step);
     else track.style.filter = '';
